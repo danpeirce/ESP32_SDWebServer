@@ -38,8 +38,8 @@
 
 #define DBG_OUTPUT_PORT Serial
 
-const char* ssid = "**********";
-const char* password = "**********";
+const char* ssid = "********";
+const char* password = "********";
 const char* host = "esp32sd";
 
 WebServer server(80);
@@ -65,6 +65,8 @@ bool loadFromSdCard(String path) {
   if (path.endsWith(".src")) {
     path = path.substring(0, path.lastIndexOf("."));
   } else if (path.endsWith(".htm")) {
+    dataType = "text/html";
+  } else if (path.endsWith(".html")) {
     dataType = "text/html";
   } else if (path.endsWith(".css")) {
     dataType = "text/css";
@@ -304,9 +306,10 @@ void setup(void) {
   server.begin();
   DBG_OUTPUT_PORT.println("HTTP server started");
 
-  if (SD.begin(SS)) {
+  if (SD.begin()) {
     DBG_OUTPUT_PORT.println("SD Card initialized.");
     hasSD = true;
+    //listDir(SD, "/", 0);
   }
 }
 
