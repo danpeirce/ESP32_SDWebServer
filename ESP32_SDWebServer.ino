@@ -39,8 +39,6 @@
 
 #define DBG_OUTPUT_PORT Serial
 
-const char* ssid = "********";
-const char* password = "********";
 const char* host = "esp32sd";
 
 WebServer server(80);
