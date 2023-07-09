@@ -35,11 +35,15 @@
 #include <ESPmDNS.h>
 #include <SPI.h>
 #include <SD.h>
+#include <time.h>
 #include <WiFiManager.h> // https://github.com/tzapu/WiFiManager
 
 #define DBG_OUTPUT_PORT Serial
 
 const char* host = "esp32sd";
+
+long timezone = -8; 
+byte daysavetime = 1;
 
 WebServer server(80);
 
@@ -296,6 +300,15 @@ void setup(void) {
   DBG_OUTPUT_PORT.print("Connected! IP address: ");
   DBG_OUTPUT_PORT.println(WiFi.localIP());
 
+  Serial.println("Contacting Time Server");
+	configTime(3600*timezone, daysavetime*3600, "time.nist.gov", "0.pool.ntp.org", "1.pool.ntp.org");
+	struct tm tmstruct ;
+    delay(2000);
+    tmstruct.tm_year = 0;
+    getLocalTime(&tmstruct, 5000);
+	Serial.printf("\nNow is : %d-%02d-%02d %02d:%02d:%02d\n",(tmstruct.tm_year)+1900,( tmstruct.tm_mon)+1, tmstruct.tm_mday,tmstruct.tm_hour , tmstruct.tm_min, tmstruct.tm_sec);
+    Serial.println("");
+
   if (MDNS.begin(host)) {
     MDNS.addService("http", "tcp", 80);
     DBG_OUTPUT_PORT.println("MDNS responder started");
@@ -319,7 +332,6 @@ void setup(void) {
   if (SD.begin()) {
     DBG_OUTPUT_PORT.println("SD Card initialized.");
     hasSD = true;
-    //listDir(SD, "/", 0);
   }
 }
 
