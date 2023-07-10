@@ -16,3 +16,22 @@ Looking to see if I can added dates and file sizes to file listing.
 
 ![](img/jason_w_size.png)
 
+## Allow longer file Names.
+
+The default behaviour was to truncate file names to 8 characters as in the old DOS 8.3 format. Specifically after browsing and choosing a file for uploading added
+a truncated version of the file name was appearing in the textbox for the file name that would appear on the micrSD file system. One was alowed to edit the truncated 
+name back to the original but that was a nuisance. Note one nust still add the new path to the file name.
+
+![](img/longer_file_names.png)
+
+Using FAT32 there is no reason to 
+limit file names in that way. I have extended the file name up to 25 characters.
+
+~~~~javascript
+233 |       if(typeof name !== undefined){
+234 |       if(name.length > 25) name = name.substring(0, 25);
+235 |       filename = name;
+~~~~
+
+
+

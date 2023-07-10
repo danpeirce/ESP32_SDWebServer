@@ -231,7 +231,7 @@
           var ext = /(?:\.([^.]+))?$/.exec(filename)[1];
           var name = /(.*)\.[^.]+$/.exec(filename)[1];
           if(typeof name !== undefined){
-            if(name.length > 8) name = name.substring(0, 8);
+            if(name.length > 25) name = name.substring(0, 25);
             filename = name;
           }
           if(typeof ext !== undefined){
