@@ -1,6 +1,7 @@
 /*
-  SDWebServer - Example WebServer with SD Card backend for esp8266
+  ESP32_SDWebServer - Example WebServer with SD Card backend for esp32
 
+  Modified from SDWebServer
   Copyright (c) 2015 Hristo Gochkov. All rights reserved.
   This file is part of the WebServer library for Arduino environment.
 
@@ -18,13 +19,13 @@
   License along with this library; if not, write to the Free Software
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
-  Have a FAT Formatted SD Card connected to the SPI port of the ESP8266
+  Have a FAT32 Formatted SD Card connected to the SPI port of the ESP32
   The web root is the SD Card root folder
   File extensions with more than 3 charecters are not supported by the SD Library
   File Names longer than 8 charecters will be truncated by the SD library, so keep filenames shorter
-  index.htm is the default index (works on subfolders as well)
+  index.htm is the default index (works on subfolders as well) **looking into this**
 
-  upload the contents of SdRoot to the root of the SDcard and access the editor by going to http://esp8266sd.local/edit
+  upload the contents of SdRoot to the root of the SDcard and access the editor by going to http://esp32sd.local/edit
   To retrieve the contents of SDcard, visit http://esp32sd.local/list?dir=/
       dir is the argument that needs to be passed to the function PrintDirectory via HTTP Get request.
 
@@ -237,6 +238,8 @@ void printDirectory() {
     output += (entry.isDirectory()) ? "dir" : "file";
     output += "\",\"name\":\"";
     output += entry.path();
+    output += "\",\"size\":\"";
+    output += entry.size();
     output += "\"";
     output += "}";
     server.sendContent(output);

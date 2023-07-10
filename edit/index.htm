@@ -144,7 +144,7 @@
         top: 28px;
         bottom: 0;
         left: 0;
-        width:300px;
+        min-width:400px;
         padding: 8px;
       }
       #editor, #preview { 
@@ -152,7 +152,7 @@
         top: 28px;
         right: 0;
         bottom: 0;
-        left: 200px;
+        left: 400px;
       }
       #preview {
         background-color: #EEE;
@@ -235,8 +235,7 @@
             filename = name;
           }
           if(typeof ext !== undefined){
-            if(ext === "html") ext = "htm";
-            else if(ext === "jpeg") ext = "jpg";
+            if(ext === "jpeg") ext = "jpg";
             filename = filename + "." + ext;
           }
           if(path.value === "/" || path.value.lastIndexOf("/") === 0){
@@ -557,7 +556,7 @@
               case "css":
               case "scss":
               case "php":
-              case "html": lang = "html"; break;
+              case "html":
               case "json":
               case "xml":
                 lang = ext;
