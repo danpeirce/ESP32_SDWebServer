@@ -9,3 +9,10 @@ Changes made to date
 * Added time set via NTP
 
 Looking to see if I can added dates and file sizes to file listing.
+
+## Added File Size to JASON
+
+* example output
+
+![](img/jason_w_size.png)
+
