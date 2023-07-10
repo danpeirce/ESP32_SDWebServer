@@ -16,6 +16,12 @@ Looking to see if I can added dates and file sizes to file listing.
 
 ![](img/jason_w_size.png)
 
+## Added File Size to Edit Index Page
+
+This required the JASON to be updated first!
+
+![](img/edit_page_w_fsize.png)
+
 ## Allow longer file Names.
 
 The default behaviour was to truncate file names to 8 characters as in the old DOS 8.3 format. Specifically after browsing and choosing a file for uploading added
