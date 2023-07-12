@@ -244,7 +244,6 @@ void printDirectory() {
     output += entry.path();
     output += "\",\"size\":\"";
     output += entry.size();
-    //output += "\"";
     output += "\",\"date\":\"";
     output += String(datebuff);
     output += "\"";

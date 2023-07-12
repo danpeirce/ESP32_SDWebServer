@@ -12,11 +12,66 @@ Changes made to date
 
 * example output
 
+~~~~C++
+231 |    time_t t= entry.getLastWrite();
+232 |    struct tm * tmstruct = localtime(&t);
+233 |    static char datebuff[30];
+234 |    sprintf(datebuff, "%d-%02d-%02d %02d:%02d:%02d",(tmstruct->tm_year)+1900,( tmstruct->tm_mon)+1, tmstruct->tm_mday,tmstruct->tm_hour , tmstruct->tm_min, tmstruct->tm_sec);
+235 |
+236 |    String output;
+237 |    if (cnt > 0) {
+238 |      output = ',';
+239 |    }
+240 |
+241 |    output += "{\"type\":\"";
+242 |    output += (entry.isDirectory()) ? "dir" : "file";
+243 |    output += "\",\"name\":\"";
+244 |    output += entry.path();
+245 |    output += "\",\"size\":\"";
+246 |    output += entry.size();
+247 |    output += "\",\"date\":\"";
+248 |    output += String(datebuff);
+249 |    output += "\"";
+250 |    output += "}";
+251 |    server.sendContent(output);
+252 |    entry.close();
+253 |  }
+254 |  server.sendContent("]");
+255 |  dir.close();
+~~~~
+
 ![](img/jason_w_size_date.png)
 
 ## Added File Size and Date to List Index Page
 
 This required the JASON to be updated first!
+
+index.htm file in **ls** folder
+
+See lines 375 and 379 below:
+
+~~~~javascript
+375 |   function createTreeLeaf(path, name, size, date){
+376 |     var leaf = document.createElement("li");
+377 |     leaf.id = name.toLowerCase();
+378 |     var label = document.createElement("span");
+379 |     label.textContent = date + " (" + size + ") "  + name;
+380 |     leaf.appendChild(label);
+381 |     leaf.onclick = function(e){
+382 |       if(isTextFile(leaf.id)){
+383 |         editor.loadUrl(leaf.id);
+384 |       } else if(isImageFile(leaf.id)){
+385 |         loadPreview(leaf.id);
+386 |       }
+387 |     };
+388 |     leaf.oncontextmenu = function(e){
+389 |       e.preventDefault();
+390 |       e.stopPropagation();
+391 |        showContextMenu(e, leaf.id, true);
+392 |     };
+393 |     return leaf;
+394 |   }
+~~~~
 
 ![](img/list_w_size_date.png)
 
