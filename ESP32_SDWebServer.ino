@@ -228,6 +228,10 @@ void printDirectory() {
     if (!entry) {
       break;
     }
+    time_t t= entry.getLastWrite();
+    struct tm * tmstruct = localtime(&t);
+    static char datebuff[30];
+    sprintf(datebuff, "%d-%02d-%02d %02d:%02d:%02d",(tmstruct->tm_year)+1900,( tmstruct->tm_mon)+1, tmstruct->tm_mday,tmstruct->tm_hour , tmstruct->tm_min, tmstruct->tm_sec);
 
     String output;
     if (cnt > 0) {
@@ -240,6 +244,9 @@ void printDirectory() {
     output += entry.path();
     output += "\",\"size\":\"";
     output += entry.size();
+    //output += "\"";
+    output += "\",\"date\":\"";
+    output += String(datebuff);
     output += "\"";
     output += "}";
     server.sendContent(output);
