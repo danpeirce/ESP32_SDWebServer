@@ -7,6 +7,45 @@ Changes made to date
 * Made column for file listing wider.
 * Added WebManager
 * Added time set via NTP
+* Added File Size and Date to List Index Page
+* Display Character Case as Saved
+* Allow longer file Names.
+
+## Added Links Page
+
+The new links page is a copy of the List page (previously called edit) except 
+
+* clicking on a of text file name in the Links page open that file in the current browser tab. If it is HTML it will 
+  display as normal in the browser. This provides an easy way to launch pages located on the microSD. 
+* clicking on a text file name in the List page will display the raw file contents in a text window of the List page.
+  This is the original behaviour.
+* In both cases clicking on image files will open the image for viewing in a window on the current page.  
+
+The change is the result of changing one line (line **383**) in the index.htm files:
+
+**/ls/index.htm**
+
+~~~~javascript
+381 |     leaf.onclick = function(e){
+382 |       if(isTextFile(leaf.id)){
+383 |         editor.loadUrl(leaf.id);
+384 |       } else if(isImageFile(leaf.id)){
+385 |         loadPreview(leaf.id);
+386 |       }
+387 |     };
+~~~~
+
+**/links/index.htm**
+
+~~~~javascript
+381 |     leaf.onclick = function(e){
+382 |       if(isTextFile(leaf.id)){
+383 |         window.location =  name;  //  replaced  editor.loadUrl(leaf.id); 
+384 |       } else if(isImageFile(leaf.id)){
+385 |         loadPreview(leaf.id);
+386 |       }
+387 |     };
+~~~~
 
 ## Added File Size and Date to JASON
 
