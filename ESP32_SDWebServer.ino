@@ -73,7 +73,9 @@ bool loadFromSdCard(String path) {
   } else if (path.endsWith(".html")) {
     dataType = "text/html";
   } else if (path.endsWith(".md")) {
-    dataType = "text/html";
+    dataType = "text/plain";
+  } else if (path.endsWith(".txt")) {
+    dataType = "text/plain";
   } else if (path.endsWith(".css")) {
     dataType = "text/css";
   } else if (path.endsWith(".js")) {
